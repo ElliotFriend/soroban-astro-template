@@ -61,7 +61,7 @@ function deploy_all() {
   mkdirSync(contractsDir, { recursive: true });
 
   const wasmFiles = readdirSync(`${dirname}/target/wasm32-unknown-unknown/release`).filter(file => file.endsWith('.wasm'));
-  
+
   wasmFiles.forEach(wasmFile => {
     deploy(`${dirname}/target/wasm32-unknown-unknown/release/${wasmFile}`);
   });
@@ -96,7 +96,7 @@ function importContract(contract) {
     `  ...Client.networks.${process.env.SOROBAN_NETWORK},\n` +
     `  rpcUrl,\n` +
     `${process.env.SOROBAN_NETWORK === 'local' || 'standalone' ? `  allowHttp: true,\n` : null}` +
-    `  publicKey: ${GENESIS_ACCOUNTS[process.env.SOROBAN_NETWORK]},\n` +
+    `  publicKey: '${GENESIS_ACCOUNTS[process.env.SOROBAN_NETWORK]}',\n` +
     `});\n`;
 
   const outputPath = `${outputDir}/${filenameNoExt}.ts`;
